@@ -1,5 +1,5 @@
 objects=*.o
-exe=first add mydir mycopy mycopy2 printpid
+exe=first add mydir mycopy mycopy2 printpid myprocesscontrol
 all : $(exe)
 DEBUG=-g
 
@@ -27,6 +27,12 @@ printpid : printpid.o
 	cc -o $@ $(DEBUG) $<
 printpid.o : apue.h
 	cc -c $(DEBUG) printpid.c
+myprocesscontrol : error.o myprocesscontrol.o
+	cc -o $@ $(DEBUG) error.o myprocesscontrol.o
+myprocesscontrol.o : apue.h
+	cc -c $(DEBUG) myprocesscontrol.c
+error.o : apue.h
+	cc -c $(DEBUG) error.c
 .PHONY : clean
 clean :
 	rm -f $(exe) $(objects)
